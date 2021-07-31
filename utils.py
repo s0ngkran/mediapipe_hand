@@ -29,6 +29,20 @@ def test():
 	assert get_thai('000') == 'ก'
 	assert get_thai(000) == 'ก'
 
+def get_list_folder(path):
+	import os
+	for _,list_folder, __ in os.walk(path):
+		break
+	return list_folder
+
+def get_list_img(path):
+	import os
+	for _,__,list_img in os.walk(path):
+		break
+	return list_img
+
+
+
 if __name__ == '__main__':
 	test()
 	print('success')
