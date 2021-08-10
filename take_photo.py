@@ -16,8 +16,9 @@ def draw_text(image, text):
     return image
 
 class MyText:
-    def __init__(self):
-        self.text = 'hello'
+    def __init__(self, init_text='hello'):
+        self.init_text = init_text
+        self.text = self.init_text
         self.t0 = time.time()
     def set_text(self, text):
         self.t0 = time.time()
@@ -25,12 +26,13 @@ class MyText:
     def check_timeout(self):
         now = time.time()
         if now - self.t0 > 1:
-            self.text = 'hello'
+            self.text = self.init_text
 
-if not os.path.exists('./my_photo'):
-    os.mkdir('./my_photo')
+folder = './TFS_validation/Y'
+if not os.path.exists(folder):
+    os.mkdir(folder)
 vid = cv2.VideoCapture(0)
-my_text = MyText()
+my_text = MyText(folder)
 count = 0
 while True:
     
@@ -56,8 +58,8 @@ while True:
         now = datetime.now()
         name = now.strftime("%m%d%YT%H%M%S")
         count += 1
-        cv2.imwrite('./my_photo/%s%d.jpg'%(name, count), ori_frame)
-        my_text.set_text('%d ./my_photo/%s%d.jpg'%(count, name, count))
+        cv2.imwrite('%s/%s%d.jpg'%(folder,name, count), ori_frame)
+        my_text.set_text('%d %s/%s%d.jpg'%(count,folder, name, count))
     
 
 # After the loop release the cap object

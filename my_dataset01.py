@@ -31,16 +31,21 @@ class MyDataset(Dataset):
                     my_landmark.append(v)
 
             gt_dict = {
-                '16': 0,
-                '17': 1,
-                '18': 2,
-                '19': 3,
-                '20': 4,
-                '21': 5,
-                '22': 6,
-                '23': 7,
-                '24': 8,
-                '25': 9,
+                # number
+                'Num01': 0,
+                'Num02': 1,
+                'Num03': 2,
+                'Num04': 3,
+                'Num05': 4,
+
+                # addition
+                'Add01': 5,
+                'Add02': 6,
+                'Add03': 7,
+                'Add04': 8,
+                'Add05': 9,
+
+                # static pose
                 'A': 10,
                 'B': 11,
                 'D': 12,
@@ -56,12 +61,80 @@ class MyDataset(Dataset):
                 'T': 22,
                 'W': 23,
                 'Y': 24,
+
+                # static pose for vowel
+                'Vow01': 25,
+                'Vow02': 26,
+                'Vow03': 27,
+                'Vow04': 28,
+                'Vow05': 29,
+            }
+            thai_to_poses = {
+                # static mode
+                'ก':['K'],
+                'ต':['T'],
+                'ส':['P'],
+                'ห':['H'],
+                'บ':['B'],
+                'ร':['R'],
+                'ว':['W'],
+                'ด':['D'],
+                'ฟ':['F'],
+                'ล':['L'],
+                'ย':['Y'],
+                'ม':['M'],
+                'น':['N'],
+                'อ':['A'],
+                'อิ':['Vol01'],
+                'โอ':['Vol03'],
+                'ไอ':['Vol04'],
+                'ใอ':['Vol05'],
+
+                # dynamic mode
+                'ข':['K','Num01'],
+                'ค':['K','Num02'],
+                'ฆ':['K','Num03'],
+
+                'ถ':['T','Num01'],
+                'ฐ':['T','Num02'],
+                'ฒ':['T','Num03'],
+                'ฑ':['T','Num04'],
+                'ฏ':['T','Num05'],
+
+                'ศ':['S','Num01'],
+                'ษ':['S','Num02'],
+
+                'ซ':['S','Add03'],
+
+                'ป':['P','Num01'],
+                'ผ':['P','Num02'],
+                'ภ':['P','Num03'],
+
+                'ฮ':['H','Num01'],
+                'ฎ':['D','Num01'],
+                'ฝ':['F','Num01'],
+                'ฬ':['L','Num01'],
+                'จ':['Add04','Add05'], # ผู้ฟังเห็น หน้ามือ แล้ว หลังมือ
+                'ญ':['Y','Num01'],
+
+                'ณ':['N','Num01'],
+                'ง':['N','Add01'],
+
+                'ท':['T','H'],
+                'ธ':['T','H','Num01'],
+
+                'ฉ':['Add02','H'],
+                'ช':['Add02','H', 'Num01'],
+                'ฌ':['Add02','H', 'Num02'],
+
+                'อี':['Vow01','Num01'],
+                'อึ':['Vow01','Vow02'],
+                'อื':['Vow01','Num02'],
             }
             self.img_path.append(_img_path)
             self.ground_truth.append(gt_dict[_ground_truth])
             self.handedness.append(_handedness)
             self.hand_landmarks.append(torch.FloatTensor(my_landmark))
-
         
     def __len__(self):
         return len(self.img_path)
