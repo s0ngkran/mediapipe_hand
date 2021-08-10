@@ -6,12 +6,16 @@ from utils import get_list_folder, get_list_img, get_thai
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
+######### config
+PHOTO_FOLDER ='./TFS_training/' 
+JSON_OUTPUT_PATH = './hand_mp_training_set.json'
+
 # For static images:
 IMAGE_FILES = []
 
 # read imgs
 i_img = 0
-photo_folder = './TFS_photo/'
+photo_folder =PHOTO_FOLDER 
 for folder_name_ in get_list_folder(photo_folder):
     folder_name = os.path.join(photo_folder, folder_name_)
     for img_path in get_list_img(folder_name):
@@ -81,7 +85,7 @@ with mp_hands.Hands(
         'hand_landmarks': result_multi_landmarks,
     }
     ans.append(output)
-with open('hand_landmark.json', 'w') as f:
+with open(JSON_OUTPUT_PATH, 'w') as f:
     json.dump(ans, f)
 print('count empty', count_empty)
 print('end')
